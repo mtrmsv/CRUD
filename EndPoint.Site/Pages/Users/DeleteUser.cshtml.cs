@@ -54,7 +54,7 @@ namespace EndPoint.Site.Pages
             
             if (foundedItem != null) 
             {
-                DataBaseContext.Users.Remove(foundedItem);
+                DataBaseContext.Remove(foundedItem);
                 await DataBaseContext.SaveChangesAsync();
             }
 
