@@ -1,0 +1,16 @@
+﻿
+@page
+@model EndPoint.Site.Pages.IndexModel
+
+
+@for (var i = 0; i < Model.ViewModel.Count; i++)
+{
+  
+   <hr />
+  <label>@(Model.ViewModel[i].Id) | </label>  
+  <label>@(Model.ViewModel[i].FullName) | </label> 
+  <label>@(Model.ViewModel[i].UserName) | </label> 
+  <label>@(Model.ViewModel[i].Email) | </label>  
+  <label>@(Model.ViewModel[i].Role)</label>
+  <hr />
+}

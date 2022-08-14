@@ -1,0 +1,21 @@
+﻿@page
+@model EndPoint.Site.Pages.Roles.CreateRoleModel
+@{
+}
+
+<form method ="post">
+    <div>
+
+        <div>
+            <label class="form-label" asp-for="ViewModel.Name"></label>
+            <input class="form-control" type="text" asp-for="ViewModel.Name" />
+        </div>
+        <div class="form-check">
+            <label asp-for="ViewModel.IsActive" class="form-chekc-label" ></label>
+            <input type="checkbox" asp-for="ViewModel.IsActive" class="form-check-input" />
+        </div>
+        <div>
+            <button type="submit" class="btn btn-success w-100">@(Resources.ButtonCaptions.Submit)</button>
+        </div>
+    </div>
+</form>

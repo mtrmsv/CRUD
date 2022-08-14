@@ -1,0 +1,61 @@
+﻿@page
+@model EndPoint.Site.Pages.CreateUserModel
+@{
+}
+
+
+<form method="post">
+    <div class="col-8 offset-2">
+        <div>
+            <br />
+            <label asp-for="UserViewModel.FullName" class="form-label">@(Resources.DataDictionary.FullName):</label>
+            <input asp-for="UserViewModel.FullName" class="form-control" />
+            <span asp-validation-for="UserViewModel.FullName" class="text-danger"></span>
+                </div>
+
+                <div>
+            <label asp-for="UserViewModel.UserName" class="form-label">@(Resources.DataDictionary.UserName):</label>
+            <input asp-for="UserViewModel.UserName" class="form-control" />
+            <span asp-validation-for="UserViewModel.UserName" class="text-danger"></span>
+                </div>
+                <div>
+            <label asp-for="UserViewModel.Password" class="form-label">@(Resources.DataDictionary.Password):</label>
+            <input asp-for="UserViewModel.Password" class="form-control"  />
+            <span asp-validation-for="UserViewModel.Password" class="text-danger"></span>
+                </div>
+                <div>
+            <label asp-for="UserViewModel.ConfirmPassword" class="form-label">@(Resources.DataDictionary.ConfirmPassword):</label>
+            <input asp-for="UserViewModel.ConfirmPassword" class="form-control" />
+            <span asp-validation-for="UserViewModel.ConfirmPassword" class="text-danger"></span>
+                </div>
+                <div>
+            <label asp-for="UserViewModel.Email" class="form-label">@(Resources.DataDictionary.EmailAddress):</label>
+            <input asp-for="UserViewModel.Email" class="form-control" />
+            <span asp-validation-for="UserViewModel.Email" class="text-danger"></span>
+                </div>
+                <div>
+                <br/>
+            <div class="form-check">
+                <label asp-for="UserViewModel.IsActive" class="form-check-label">@(Resources.DataDictionary.IsActive):</label>
+                <input asp-for="UserViewModel.IsActive" class="form-check-input" />
+                <span asp-validation-for="UserViewModel.IsActive" class="text-danger"></span>
+            </div>
+                </div>
+                <br />
+                <div>
+            <label asp-for="UserViewModel.RoleId" class="form-label"></label>
+            <select asp-for="UserViewModel.RoleId" class="form-select">
+                <option value=@(null)>@(Resources.DataDictionary.SelectValue)</option>
+                @foreach  (var item in Model.RoleViewModel)
+                {
+                    <option value="@(item.Id)">@(item.Name)</option>
+                }
+            </select>
+            <span asp-validation-for="UserViewModel.RoleId" class="text-danger"></span>
+                </div>
+                <div>
+                <br/>
+            <button type="submit" class="btn btn-primary">@(Resources.ButtonCaptions.Submit)</button>
+                </div>
+        </div>
+</form>

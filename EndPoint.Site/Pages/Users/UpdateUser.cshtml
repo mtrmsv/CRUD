@@ -1,0 +1,67 @@
+﻿@page
+@model EndPoint.Site.Pages.UpdateUserModel
+    
+<div class=col-8 offset=2>
+
+<form method="post">
+        <hr />
+
+        <label>@(Resources.DataDictionary.FullName) </label>
+        <input type="text" asp-for="ViewModel.FullName" value=@(Model.ViewModel.FullName)/>
+
+        <br />
+
+        <label>@(Resources.DataDictionary.UserName) </label>
+        <input type="text" asp-for="ViewModel.UserName" | />
+
+        <br />
+
+        <label>@(Resources.DataDictionary.EmailAddress) </label>
+        <input type="text" asp-for="ViewModel.Email" | />
+
+        <br />
+
+        <div class="form-check">
+            <label>@(Resources.DataDictionary.IsActive) </label>
+            <input asp-for="ViewModel.IsActive" type="checkbox" | />
+        </div>
+
+        <br />
+
+        <div>
+            <label asp-for="ViewModel.RoleId" class="form-label"></label>
+            <select class="" asp-for="ViewModel.RoleId">
+                
+                @if (Model.ViewModel.RoleId == null)
+                {
+                    <option value="@(null)" selected>@(Resources.DataDictionary.SelectValue)</option>
+                }
+                else
+                {
+                    <option value="@(null)">@(Resources.DataDictionary.SelectValue)</option>
+                }
+                @foreach (var item in Model.RolesViewModel)
+                {
+                    if (Model.ViewModel.Id == item.Id)
+                    {
+                        <option value="@(item.Id)" selected>@(item.Name)</option>
+                    }
+                    else
+                    {
+                     <option value="@(item.Id)">@(item.Name)</option>   
+                    }
+
+                }
+              
+            </select>
+
+        </div>
+        
+        <br />
+
+        <button type="submit">@(Resources.ButtonCaptions.Update) </button>
+        <button type="reset">@(Resources.ButtonCaptions.Reset)</button>
+
+
+</form>
+<div/>
