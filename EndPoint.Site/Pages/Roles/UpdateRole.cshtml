@@ -2,3 +2,24 @@
 @model EndPoint.Site.Pages.Roles.UpdateRoleModel
 @{
 }
+
+
+<form method="post">
+    <div>
+        <div>
+            <label asp-for="RoleViewModel.Name"></label>
+            <input type="text" asp-for="RoleViewModel.Name" />
+        </div>
+        <div class="form-check">
+            <input type="checkbox" asp-for="RoleViewModel.IsActive" />
+            <label class="form-check" asp-for="RoleViewModel.IsActive"></label>
+        </div>
+
+        <div>
+            <button type="submit">@(Resources.ButtonCaptions.Update)</button>
+        </div>
+
+    </div>
+</form>
+
+

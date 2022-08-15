@@ -5,10 +5,10 @@ using Microsoft.EntityFrameworkCore;
 
 namespace EndPoint.Site.Pages.Roles
 {
-    public class DeleteModel : BasePageModelWithDatabase
+    public class DeleteRoleModel : BasePageModelWithDatabase
     {
 
-        public DeleteModel(CRUD.Persistance.Contexts.DataBaseContext DataBaseContext) : base(DataBaseContext) 
+        public DeleteRoleModel(CRUD.Persistance.Contexts.DataBaseContext DataBaseContext) : base(DataBaseContext) 
         {
             RoleViewModel = new();
         }
