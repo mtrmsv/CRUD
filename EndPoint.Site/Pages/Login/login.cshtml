@@ -1,0 +1,16 @@
+﻿@page
+@model EndPoint.Site.Pages.Login.loginModel
+@{}
+
+<form method="post">
+    <label asp-for="LoginViewModel.UserName"></label>
+    <input type="text" asp-for="LoginViewModel.UserName" />
+    <span asp-validation-for="LoginViewModel.UserName" class="text-danger"></span>
+    <br />
+    <label asp-for="LoginViewModel.Password"></label>
+    <input type="password" asp-for="LoginViewModel.Password" />
+    <span asp-validation-for="LoginViewModel.Password" class="text-danger"></span>  
+    <br />
+    <button type="submit">@(Resources.ButtonCaptions.Submit)</button>
+
+</form>

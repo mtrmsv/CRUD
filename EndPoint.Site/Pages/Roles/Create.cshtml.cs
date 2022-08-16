@@ -4,10 +4,10 @@ using CRUD.Infrastructure;
 
 namespace EndPoint.Site.Pages.Roles
 {
-    public class CreateRoleModel : BasePageModelWithDatabase
+    public class CreateModel : BasePageModelWithDatabase
     {
 
-        public CreateRoleModel(CRUD.Persistance.Contexts.DataBaseContext DataBaseContext) : base(DataBaseContext)
+        public CreateModel(CRUD.Persistance.Contexts.DataBaseContext DataBaseContext) : base(DataBaseContext)
         {
             ViewModel = new();
         }
@@ -30,13 +30,18 @@ namespace EndPoint.Site.Pages.Roles
                     IsActive = ViewModel.IsActive,
                 };
 
-                
-                await DataBaseContext.AddAsync(Role);  
-                DataBaseContext.SaveChangesAsync();
+                await DataBaseContext.AddAsync(Role);
+                await DataBaseContext.SaveChangesAsync();
             }
-            
-            catch (Exception ex) { }
 
+            catch (Exception ex) 
+            {
+            }
+
+            finally 
+            {
+                await DisposeDataBaseContextAsync();
+            }
             return Page();
 
         }

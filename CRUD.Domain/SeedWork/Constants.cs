@@ -25,6 +25,7 @@ namespace CRUD.Domain.SeedWork
         {
             public const string Email = @"^[a-zA-Z0-9_.-]+@[a-zA-Z0-9_.-]+$";
             public const string Password = @"^[a-zA-Z0-9_]{8,20}$";
+            public const string Username = @"^[a-zA-Z0-9_]{6,20}$";
 
         }
     }

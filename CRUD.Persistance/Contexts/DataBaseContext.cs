@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -25,6 +26,12 @@ namespace CRUD.Persistance.Contexts
             (Microsoft.EntityFrameworkCore.DbContextOptionsBuilder optionsBuilder)
         {
             base.OnConfiguring(optionsBuilder);
+        }
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder) 
+        {
+            modelBuilder.Entity<CRUD.Domain.Entities.Users.User>()
+                .ToTable("Users", t => t.ExcludeFromMigrations());
         }
     }
 }

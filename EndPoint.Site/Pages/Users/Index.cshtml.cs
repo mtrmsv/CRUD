@@ -8,7 +8,7 @@ namespace EndPoint.Site.Pages
     {
         public IndexModel (CRUD.Persistance.Contexts.DataBaseContext dataBaseContext) : base (dataBaseContext)
         {
-             
+            ViewModel = new List<ViewModels.Users.GetUsersViewModel> ();
         }
         
 
@@ -17,19 +17,28 @@ namespace EndPoint.Site.Pages
 
         public async Task<IActionResult> OnGet() 
         {
-            ViewModel =  DataBaseContext.Users
-                .OrderBy(current => current.Id)
-                .Select(current => new ViewModels.Users.GetUsersViewModel
-                {
-                     Role = current.Role.Name,
-                     Id = current.Id,
-                     Email = current.Email,
-                     FullName = current.FullName,
-                     IsActive = current.IsActive,    
-                     UserName = current.UserName,
-                        
-                }).ToList();
+            try
+            {
+                ViewModel = DataBaseContext.Users
+                    .OrderBy(current => current.Id)
+                    .Select(current => new ViewModels.Users.GetUsersViewModel
+                    {
+                        Role = current.Role.Name,
+                        Id = current.Id,
+                        Email = current.Email,
+                        FullName = current.FullName,
+                        IsActive = current.IsActive,
+                        UserName = current.UserName,
 
+                    }).ToList();
+            }
+            
+            catch (Exception ex) { }
+            
+            finally 
+            { 
+                await DisposeDataBaseContextAsync(); 
+            }
             return Page();
         }
 

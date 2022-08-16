@@ -4,28 +4,39 @@
 }
 
 
-<div class="col-12 ">
+<div class="col-12">
+    <br />
+    <a asp-page-handler ="UpdateRole">CreteRole</a>
+    <br />
     <table>
-
         <thead>
-            <tr class ="row-cols-6">@(Resources.DataDictionary.Id)       | </tr>
-            <tr class ="row-cols-6">@(Resources.DataDictionary.RoleName) | </tr>
-            <tr class ="row-cols-6">@(Resources.DataDictionary.IsActive) | </tr>
+            <tr>
+                <th>Number | </th>
+                <th> Actions| </th>
+                <th>@(Resources.DataDictionary.Id)       | </th>
+                <th>@(Resources.DataDictionary.RoleName) | </th>
+                <th>@(Resources.DataDictionary.IsActive) | </th>
+            </tr>
         </thead>
-        
-        @foreach (var item in Model.RoleViewModel)
+        @for (var i = 0; i < Model.RoleViewModel.Count(); i++)
         {
             <tr>
                 <td>
-                    <label class="form-label"> @(item.Id) | </label>
+                    <label>@(i+1)</label>
                 </td>
                 <td>
-                    <label class="form-label">@(item.Name) | </label>
+                    <a asp-page ="UpdateRole" asp-route-id = "@(Model.RoleViewModel[i].Id)" >U</a>
+                    <a asp-page ="DeleteRole" asp-route-id = "@(Model.RoleViewModel[i].Id)" >D</a>
                 </td>
-                 <td>
-                     <label class="form-label">@(item.IsActive) | </label>
-                 </td>
-
+                <td>
+                    <label class="form-label"> @(Model.RoleViewModel[i].Id) | </label>
+                </td>
+                <td>
+                    <label class="form-label">@(Model.RoleViewModel[i].Name) | </label>
+                </td>
+                <td>
+                    <label class="form-label">@(Model.RoleViewModel[i].IsActive) | </label>
+                </td>
             </tr>
         }
 

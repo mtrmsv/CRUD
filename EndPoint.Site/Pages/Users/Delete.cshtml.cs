@@ -5,10 +5,10 @@ using CRUD.Infrastructure;
 
 namespace EndPoint.Site.Pages
 {
-    public class DeleteUserModel : BasePageModelWithDatabase
+    public class DeleteModel : BasePageModelWithDatabase
     {
         
-        public DeleteUserModel(CRUD.Persistance.Contexts.DataBaseContext dataBaseContext) : base (dataBaseContext)
+        public DeleteModel(CRUD.Persistance.Contexts.DataBaseContext dataBaseContext) : base (dataBaseContext)
         {
 
             ViewModel = new();
@@ -33,15 +33,14 @@ namespace EndPoint.Site.Pages
                         UserName = Current.UserName,
 
                     }).FirstAsync();
-
-
-                if (ViewModel == null)
-                {
-
-                }
             }
             catch (Exception ex)
             {
+            }
+            
+            finally 
+            {
+                await DisposeDataBaseContextAsync();
             }
          
         }

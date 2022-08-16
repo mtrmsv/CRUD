@@ -5,9 +5,9 @@ using Microsoft.EntityFrameworkCore;
 
 namespace EndPoint.Site.Pages
 {
-    public class CreateUserModel : BasePageModelWithDatabase
+    public class CreateModel : BasePageModelWithDatabase
     {
-        public CreateUserModel(CRUD.Persistance.Contexts.DataBaseContext dataBaseContext) : base(dataBaseContext)
+        public CreateModel(CRUD.Persistance.Contexts.DataBaseContext dataBaseContext) : base(dataBaseContext)
         {
             UserViewModel = new();
             RoleViewModel = new List<ViewModels.Roles.CreateRoleViewModel>();
@@ -54,7 +54,11 @@ namespace EndPoint.Site.Pages
             catch (Exception ex)
             {
             }
-
+            finally 
+            {
+                await DisposeDataBaseContextAsync();
+            }
+            
             return Redirect(url: "index.cshtml");
 
         }
