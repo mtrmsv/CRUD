@@ -42,33 +42,64 @@ namespace EndPoint.Site.Pages.Roles
             return Page();   
         }
 
-        public async Task<IActionResult> OnPostAsync(Guid Id)
+        //public async Task<IActionResult> OnPostAsync(Guid Id)
+        //{
+        //    try
+        //    {
+        //        var foundedItem = await DataBaseContext.Roles
+                       
+                   
+        //          .Where(Current => Current.Id == Id)
+        //            .FirstOrDefaultAsync();
+
+        //        if (foundedItem != null)
+        //        {
+        //            foundedItem.IsActive = RoleViewModel.IsActive;
+        //            foundedItem.Name = RoleViewModel.Name;
+        //        }
+
+        //        await DataBaseContext.SaveChangesAsync();
+        //    }
+        //    catch (Exception ex) 
+        //    {
+
+        //    }   
+
+        //    finally 
+        //    { 
+        //        await DisposeDataBaseContextAsync(); 
+        //    }   
+            
+        //    return Redirect("index");
+        //}
+
+        public async Task<IActionResult> OnPostAsync() 
         {
             try
             {
-                var foundedItem = await DataBaseContext.Roles
-                    .Where(Current => Current.Id == Id)
-                    .FirstOrDefaultAsync();
-
-                if (foundedItem != null)
+                var role = new CRUD.Domain.Entities.Roles.Role() 
                 {
-                    foundedItem.IsActive = RoleViewModel.IsActive;
-                    foundedItem.Name = RoleViewModel.Name;
-                }
+                     Name = RoleViewModel.Name, 
+                };
+                
+                DataBaseContext.Roles.Attach(role); 
 
-                await DataBaseContext.SaveChangesAsync();
+                role.IsActive = RoleViewModel.IsActive; 
+                role.Name = RoleViewModel.Name;
+
+                DataBaseContext.SaveChanges();
+
             }
-            catch (Exception ex) 
+            catch (Exception ex)
             {
+            }
 
-            }   
+            finally
+            {
+                await DisposeDataBaseContextAsync();
+            }
 
-            finally 
-            { 
-                await DisposeDataBaseContextAsync(); 
-            }   
-            
-            return Redirect("index");
+            return Redirect ("/roles/");
         }
     }
 }

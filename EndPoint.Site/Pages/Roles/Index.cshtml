@@ -25,8 +25,8 @@
                     <label>@(i+1)</label>
                 </td>
                 <td>
-                    <a asp-page ="UpdateRole" asp-route-id = "@(Model.RoleViewModel[i].Id)" >U</a>
-                    <a asp-page ="DeleteRole" asp-route-id = "@(Model.RoleViewModel[i].Id)" >D</a>
+                    <a asp-page ="Update" asp-route-id = "@(Model.RoleViewModel[i].Id)" >U</a>
+                    <a asp-page ="Delete" asp-route-id = "@(Model.RoleViewModel[i].Id)" >D</a>
                 </td>
                 <td>
                     <label class="form-label"> @(Model.RoleViewModel[i].Id) | </label>
