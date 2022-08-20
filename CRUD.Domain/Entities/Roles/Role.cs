@@ -12,6 +12,9 @@ namespace CRUD.Domain.Entities.Roles
         public Role() { }
 
 
+        public Guid Id { get; set; }
+
+
         [System.ComponentModel.DataAnnotations.Display
             (Name = nameof(Resources.DataDictionary.RoleName) , 
             ResourceType = typeof(Resources.DataDictionary))]

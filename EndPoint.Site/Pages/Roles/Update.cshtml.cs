@@ -73,21 +73,23 @@ namespace EndPoint.Site.Pages.Roles
         //    return Redirect("index");
         //}
 
-        public async Task<IActionResult> OnPostAsync() 
+        public async Task<IActionResult> OnPostAsync(Guid Id) 
         {
             try
             {
                 var role = new CRUD.Domain.Entities.Roles.Role() 
                 {
-                     Name = RoleViewModel.Name, 
+                     Id = RoleViewModel.Id,
+                     Name = RoleViewModel.Name,
+                     IsActive = RoleViewModel.IsActive
                 };
-                
+
                 DataBaseContext.Roles.Attach(role); 
 
-                role.IsActive = RoleViewModel.IsActive; 
-                role.Name = RoleViewModel.Name;
-
+                DataBaseContext.Roles.Attach(role).State = EntityState.Modified;
+                             
                 DataBaseContext.SaveChanges();
+                
 
             }
             catch (Exception ex)
