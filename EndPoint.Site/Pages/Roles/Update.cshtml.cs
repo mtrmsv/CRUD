@@ -20,7 +20,6 @@ namespace EndPoint.Site.Pages.Roles
         {
             try
             {
-
                 RoleViewModel = await DataBaseContext.Roles
                      .Where(Current => Current.Id == Id)
                      .Select(Current => new ViewModels.Roles.CreateRoleViewModel()
@@ -79,7 +78,7 @@ namespace EndPoint.Site.Pages.Roles
             {
                 var role = new CRUD.Domain.Entities.Roles.Role() 
                 {
-                     Id = RoleViewModel.Id,
+                     Id = Id,
                      Name = RoleViewModel.Name,
                      IsActive = RoleViewModel.IsActive
                 };
@@ -88,9 +87,7 @@ namespace EndPoint.Site.Pages.Roles
 
                 DataBaseContext.Roles.Attach(role).State = EntityState.Modified;
                              
-                DataBaseContext.SaveChanges();
-                
-
+                DataBaseContext.SaveChanges();   
             }
             catch (Exception ex)
             {
