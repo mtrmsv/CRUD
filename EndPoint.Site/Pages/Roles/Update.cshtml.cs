@@ -72,16 +72,50 @@ namespace EndPoint.Site.Pages.Roles
         //    return Redirect("index");
         //}
 
+        //public async Task<IActionResult> OnPostAsync(Guid Id)
+        //{
+        //    try
+        //    {
+        //        var role = new CRUD.Domain.Entities.Roles.Role()
+        //        {
+        //            Id = Id,
+        //            Name = RoleViewModel.Name,
+        //            IsActive = RoleViewModel.IsActive
+        //        };
+
+        //        DataBaseContext.Roles.Attach(role);
+
+        //        DataBaseContext.Roles.Attach(role).State = EntityState.Modified;
+
+        //        DataBaseContext.SaveChanges();
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //    }
+
+        //    finally
+        //    {
+        //        await DisposeDataBaseContextAsync();
+        //    }
+
+        //    return Redirect("/roles/");
+        //}
+
         public async Task<IActionResult> OnPostAsync(Guid Id)
         {
             try
             {
-                var role = new CRUD.Domain.Entities.Roles.Role()
+                var config = new AutoMapper.MapperConfiguration(cnf =>
                 {
-                    Id = Id,
-                    Name = RoleViewModel.Name,
-                    IsActive = RoleViewModel.IsActive
-                };
+                    cnf.CreateMap<CRUD.Domain.Entities.Roles.Role,ViewModels.Roles.CreateRoleViewModel >();
+                    cnf.CreateMap<ViewModels.Roles.CreateRoleViewModel, CRUD.Domain.Entities.Roles.Role>();
+                }
+                );
+
+                AutoMapper.IMapper mapper = config.CreateMapper();
+
+                CRUD.Domain.Entities.Roles.Role role = mapper.Map<CRUD.Domain.Entities.Roles.Role>(RoleViewModel);
+                role.Id= Id;    
 
                 DataBaseContext.Roles.Attach(role);
 
@@ -92,7 +126,7 @@ namespace EndPoint.Site.Pages.Roles
             catch (Exception ex)
             {
             }
-
+            
             finally
             {
                 await DisposeDataBaseContextAsync();
@@ -100,6 +134,5 @@ namespace EndPoint.Site.Pages.Roles
 
             return Redirect("/roles/");
         }
-
     }
 }

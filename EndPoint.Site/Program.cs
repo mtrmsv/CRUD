@@ -29,11 +29,11 @@ builder.Services.AddDbContext<CRUD.Persistance.Contexts.DataBaseContext>
 
 
 var app = builder.Build();
+
 app.UseHttpsRedirection();
 
 app.UseStaticFiles();
 
 app.MapRazorPages();
-
 
 app.Run();

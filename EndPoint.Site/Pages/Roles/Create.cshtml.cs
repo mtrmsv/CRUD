@@ -55,7 +55,6 @@ namespace EndPoint.Site.Pages.Roles
                 });
 
             AutoMapper.IMapper mapper = config.CreateMapper();
-            //ViewModel = mapper.Map<ViewModels.Roles.CreateRoleViewModel>(role);
             
             CRUD.Domain.Entities.Roles.Role role = 
                 mapper.Map<CRUD.Domain.Entities.Roles.Role>(ViewModel);
