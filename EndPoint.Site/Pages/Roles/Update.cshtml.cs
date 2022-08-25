@@ -46,8 +46,8 @@ namespace EndPoint.Site.Pages.Roles
         //    try
         //    {
         //        var foundedItem = await DataBaseContext.Roles
-                       
-                   
+
+
         //          .Where(Current => Current.Id == Id)
         //            .FirstOrDefaultAsync();
 
@@ -68,26 +68,26 @@ namespace EndPoint.Site.Pages.Roles
         //    { 
         //        await DisposeDataBaseContextAsync(); 
         //    }   
-            
+
         //    return Redirect("index");
         //}
 
-        public async Task<IActionResult> OnPostAsync(Guid Id) 
+        public async Task<IActionResult> OnPostAsync(Guid Id)
         {
             try
             {
-                var role = new CRUD.Domain.Entities.Roles.Role() 
+                var role = new CRUD.Domain.Entities.Roles.Role()
                 {
-                     Id = Id,
-                     Name = RoleViewModel.Name,
-                     IsActive = RoleViewModel.IsActive
+                    Id = Id,
+                    Name = RoleViewModel.Name,
+                    IsActive = RoleViewModel.IsActive
                 };
 
-                DataBaseContext.Roles.Attach(role); 
+                DataBaseContext.Roles.Attach(role);
 
                 DataBaseContext.Roles.Attach(role).State = EntityState.Modified;
-                             
-                DataBaseContext.SaveChanges();   
+
+                DataBaseContext.SaveChanges();
             }
             catch (Exception ex)
             {
@@ -98,7 +98,8 @@ namespace EndPoint.Site.Pages.Roles
                 await DisposeDataBaseContextAsync();
             }
 
-            return Redirect ("/roles/");
+            return Redirect("/roles/");
         }
+
     }
 }

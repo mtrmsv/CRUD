@@ -15,35 +15,55 @@ namespace EndPoint.Site.Pages.Roles
         [Microsoft.AspNetCore.Mvc.BindProperty]
         public ViewModels.Roles.CreateRoleViewModel ViewModel { get; set; }
 
+        //public async Task<IActionResult> OnPostAsync()
+        //{
+        //    if (ModelState.IsValid == false)
+        //    {
+        //        return Page();
+        //    }
+
+        //    try
+        //    {
+        //        CRUD.Domain.Entities.Roles.Role Role = new()
+        //        {
+        //            Name = ViewModel.Name,
+        //            IsActive = ViewModel.IsActive,
+        //        };
+
+        //        await DataBaseContext.AddAsync(Role);
+        //        await DataBaseContext.SaveChangesAsync();
+        //    }
+
+        //    catch (Exception ex) 
+        //    {
+        //    }
+
+        //    finally 
+        //    {
+        //        await DisposeDataBaseContextAsync();
+        //    }
+        //    return Page();
+
+        //}
+
         public async Task<IActionResult> OnPostAsync()
         {
-            if (ModelState.IsValid == false)
-            {
-                return Page();
-            }
-
-            try
-            {
-                CRUD.Domain.Entities.Roles.Role Role = new()
+            var config = new AutoMapper.MapperConfiguration(cfg =>
                 {
-                    Name = ViewModel.Name,
-                    IsActive = ViewModel.IsActive,
-                };
+                    cfg.CreateMap<CRUD.Domain.Entities.Roles.Role, ViewModels.Roles.CreateRoleViewModel>();
+                    cfg.CreateMap<ViewModels.Roles.CreateRoleViewModel, CRUD.Domain.Entities.Roles.Role>();
+                });
 
-                await DataBaseContext.AddAsync(Role);
-                await DataBaseContext.SaveChangesAsync();
-            }
+            AutoMapper.IMapper mapper = config.CreateMapper();
+            //ViewModel = mapper.Map<ViewModels.Roles.CreateRoleViewModel>(role);
+            
+            CRUD.Domain.Entities.Roles.Role role = 
+                mapper.Map<CRUD.Domain.Entities.Roles.Role>(ViewModel);
 
-            catch (Exception ex) 
-            {
-            }
+            await DataBaseContext.AddAsync(role);
+            await DataBaseContext.SaveChangesAsync();
 
-            finally 
-            {
-                await DisposeDataBaseContextAsync();
-            }
-            return Page();
-
+            return Redirect("index");
         }
     }
 }
