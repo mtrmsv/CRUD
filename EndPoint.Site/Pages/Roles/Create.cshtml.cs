@@ -7,13 +7,16 @@ namespace EndPoint.Site.Pages.Roles
     public class CreateModel : BasePageModelWithDatabase
     {
 
-        public CreateModel(CRUD.Persistance.Contexts.DataBaseContext DataBaseContext) : base(DataBaseContext)
+        public CreateModel(CRUD.Persistance.Contexts.DataBaseContext DataBaseContext, AutoMapper.IMapper mapper) : base(DataBaseContext)
         {
             ViewModel = new();
+            Mapper = mapper;
         }
 
         [Microsoft.AspNetCore.Mvc.BindProperty]
         public ViewModels.Roles.CreateRoleViewModel ViewModel { get; set; }
+
+        public AutoMapper.IMapper Mapper { get;}  
 
         //public async Task<IActionResult> OnPostAsync()
         //{
@@ -54,10 +57,10 @@ namespace EndPoint.Site.Pages.Roles
                     cfg.CreateMap<ViewModels.Roles.CreateRoleViewModel, CRUD.Domain.Entities.Roles.Role>();
                 });
 
-            AutoMapper.IMapper mapper = config.CreateMapper();
+            //AutoMapper.IMapper mapper = config.CreateMapper();
             
             CRUD.Domain.Entities.Roles.Role role = 
-                mapper.Map<CRUD.Domain.Entities.Roles.Role>(ViewModel);
+                Mapper.Map<CRUD.Domain.Entities.Roles.Role>(ViewModel);
 
             await DataBaseContext.AddAsync(role);
             await DataBaseContext.SaveChangesAsync();

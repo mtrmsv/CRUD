@@ -8,13 +8,16 @@ namespace EndPoint.Site.Pages.Roles
 {
     public class UpdateModel : BasePageModelWithDatabase
     {
-        public UpdateModel(DataBaseContext dataBaseContext) : base(dataBaseContext)
+        public UpdateModel(DataBaseContext dataBaseContext, AutoMapper.IMapper mapper) : base(dataBaseContext)
         {
             RoleViewModel = new();
+            Mapper = mapper;
         }
 
         [Microsoft.AspNetCore.Mvc.BindProperty]
         public ViewModels.Roles.CreateRoleViewModel RoleViewModel { set; get; }
+
+        public AutoMapper.IMapper Mapper { get; }
 
         public async Task<IActionResult> OnGetAsync(Guid Id)
         {
@@ -112,9 +115,12 @@ namespace EndPoint.Site.Pages.Roles
                 }
                 );
 
-                AutoMapper.IMapper mapper = config.CreateMapper();
+                //AutoMapper.IMapper mapper = config.CreateMapper();
 
-                CRUD.Domain.Entities.Roles.Role role = mapper.Map<CRUD.Domain.Entities.Roles.Role>(RoleViewModel);
+
+                CRUD.Domain.Entities.Roles.Role role = 
+                    Mapper.Map<CRUD.Domain.Entities.Roles.Role>(RoleViewModel);
+                
                 role.Id= Id;    
 
                 DataBaseContext.Roles.Attach(role);
