@@ -51,11 +51,11 @@ namespace EndPoint.Site.Pages.Roles
 
         public async Task<IActionResult> OnPostAsync()
         {
-            var config = new AutoMapper.MapperConfiguration(cfg =>
-                {
-                    cfg.CreateMap<CRUD.Domain.Entities.Roles.Role, ViewModels.Roles.CreateRoleViewModel>();
-                    cfg.CreateMap<ViewModels.Roles.CreateRoleViewModel, CRUD.Domain.Entities.Roles.Role>();
-                });
+            //var config = new AutoMapper.MapperConfiguration(cfg =>
+            //    {
+            //        cfg.CreateMap<CRUD.Domain.Entities.Roles.Role, ViewModels.Roles.CreateRoleViewModel>();
+            //        cfg.CreateMap<ViewModels.Roles.CreateRoleViewModel, CRUD.Domain.Entities.Roles.Role>();
+            //    });
 
             //AutoMapper.IMapper mapper = config.CreateMapper();
             

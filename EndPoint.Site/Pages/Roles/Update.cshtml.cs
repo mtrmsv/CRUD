@@ -108,12 +108,12 @@ namespace EndPoint.Site.Pages.Roles
         {
             try
             {
-                var config = new AutoMapper.MapperConfiguration(cnf =>
-                {
-                    cnf.CreateMap<CRUD.Domain.Entities.Roles.Role,ViewModels.Roles.CreateRoleViewModel >();
-                    cnf.CreateMap<ViewModels.Roles.CreateRoleViewModel, CRUD.Domain.Entities.Roles.Role>();
-                }
-                );
+                //var config = new AutoMapper.MapperConfiguration(cnf =>
+                //{
+                //    cnf.CreateMap<CRUD.Domain.Entities.Roles.Role, ViewModels.Roles.CreateRoleViewModel>();
+                //    cnf.CreateMap<ViewModels.Roles.CreateRoleViewModel, CRUD.Domain.Entities.Roles.Role>();
+                //}
+                //);
 
                 //AutoMapper.IMapper mapper = config.CreateMapper();
 
