@@ -27,7 +27,7 @@ builder.Services.AddDbContext<CRUD.Persistance.Contexts.DataBaseContext>
             .UseSqlServer(connectionString: connectionString);
 	});
 
-builder.Services.AddAutoMapper(typeof(CRUD.Infrastructure.BasePageModelWithDatabase));	
+builder.Services.AddAutoMapper(typeof(CRUD.Infrastructure.AutoMapperProfiles.RoleProfile));	
 
 var app = builder.Build();
 
