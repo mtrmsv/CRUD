@@ -1,21 +1,28 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.Extensions.Logging;
 
 namespace EndPoint.Site.Pages.Roles
 {
     public class HiModel : PageModel
     {
-        public HiModel() 
-        {}
+        public HiModel(ILogger<HiModel> logger) 
+        {
+            Logger = logger;    
+        }
+
+        protected ILogger<HiModel> Logger { get; }   
 
         [Microsoft.AspNetCore.Mvc.BindProperty]
         public CRUD.Domain.Validators.Hi Hi { get; set; }
 
         public void OnGet()
         {
+            Logger.LogTrace("OnGet Run");
         }
         public void OnPost() 
         {
+            Logger.LogInformation("OnPost Run");
             //if (!ModelState.IsValid) 
             //{
             //    //return Page();

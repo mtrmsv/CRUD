@@ -3,54 +3,82 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using FluentValidation.AspNetCore;
 using FluentValidation;
-
-var builder = WebApplication.CreateBuilder(args);
-//
-//
-builder.Services.AddRazorPages();	
+using NLog;
+using NLog.Web;
 
 
-var connectionString =
-	builder.Configuration.GetConnectionString(name: "ConnectionString");
+var logger = NLog.LogManager.Setup().LoadConfigurationFromAppSettings().GetCurrentClassLogger();
+//var logger1 = NLog.Web.NLogBuilder.ConfigureNLog("nlog.config").GetCurrentClassLogger();	
 
-// AddDbContext -> using Microsoft.Extensions.DependencyInjection;
-builder.Services.AddDbContext<CRUD.Persistance.Contexts.DataBaseContext>
-	(optionsAction: options =>
-	{
-		options
-			// using Microsoft.EntityFrameworkCore.Proxies;
-			.UseLazyLoadingProxies();
+try 
+{
+	logger.Debug("init main");
+	
+	var builder = WebApplication.CreateBuilder(args);
 
-		options
-            // using Microsoft.EntityFrameworkCore.SqlServer
-            .UseSqlServer(connectionString: connectionString);
-	});
-
-builder.Services.AddAutoMapper(typeof(CRUD.Infrastructure.AutoMapperProfiles.RoleProfile));
+	builder.Logging.ClearProviders();
+	builder.Logging.SetMinimumLevel(Microsoft.Extensions.Logging.LogLevel.Trace);
+	builder.Host.UseNLog();
 
 
+	builder.Services.AddRazorPages();
 
-builder.Services.AddValidatorsFromAssemblyContaining<CRUD.Domain.Validators.HiValidator>();
-builder.Services.AddFluentValidationAutoValidation();
-builder.Services.AddFluentValidationClientsideAdapters();
+	var connectionString =
+		builder.Configuration.GetConnectionString(name: "ConnectionString");
+
+	// AddDbContext -> using Microsoft.Extensions.DependencyInjection;
+	builder.Services.AddDbContext<CRUD.Persistance.Contexts.DataBaseContext>
+		(optionsAction: options =>
+		{
+			options
+				// using Microsoft.EntityFrameworkCore.Proxies;
+				.UseLazyLoadingProxies();
+
+			options
+				// using Microsoft.EntityFrameworkCore.SqlServer
+				.UseSqlServer(connectionString: connectionString);
+		});
+
+	builder.Services.AddAutoMapper(typeof(CRUD.Infrastructure.AutoMapperProfiles.RoleProfile));
 
 
-//builder.Services.AddFluentValidation(Current =>
-//{
-//	Current.RegisterValidatorsFromAssemblyContaining<CRUD.Domain.Validators.HiValidator>();
-//	Current.LocalizationEnabled = true;	
-//	Current.AutomaticValidationEnabled = true;	
-//	Current.ImplicitlyValidateChildProperties = false;
-//	Current.ImplicitlyValidateRootCollectionElements = false;	
-//});	
+
+	builder.Services.AddValidatorsFromAssemblyContaining<CRUD.Domain.Validators.HiValidator>();
+	builder.Services.AddFluentValidationAutoValidation();
+	builder.Services.AddFluentValidationClientsideAdapters();
 
 
-var app = builder.Build();
+	//builder.Services.AddFluentValidation(Current =>
+	//{
+	//	Current.RegisterValidatorsFromAssemblyContaining<CRUD.Domain.Validators.HiValidator>();
+	//	Current.LocalizationEnabled = true;	
+	//	Current.AutomaticValidationEnabled = true;	
+	//	Current.ImplicitlyValidateChildProperties = false;
+	//	Current.ImplicitlyValidateRootCollectionElements = false;	
+	//});	
 
-app.UseHttpsRedirection();
+	
+	
+	var app = builder.Build();
 
-app.UseStaticFiles();
+	app.UseHttpsRedirection();
 
-app.MapRazorPages();
+	app.UseStaticFiles();
 
-app.Run();
+	app.MapRazorPages();
+
+	app.Run();
+	
+
+}
+catch (Exception ex) 
+{
+	logger.Error(ex,"stop program because of exception");
+	throw;
+}
+finally 
+{
+	NLog.LogManager.Shutdown();
+}	
+
+
