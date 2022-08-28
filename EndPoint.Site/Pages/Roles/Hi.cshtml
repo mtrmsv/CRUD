@@ -1,0 +1,17 @@
+﻿@page
+@model EndPoint.Site.Pages.Roles.HiModel
+@{
+}
+<h1>Hi</h1>
+
+<form method="post">
+    <div>
+        <label>FullName:</label>
+        <input asp-for="Hi.FullNamess" type="text" />
+        <span asp-validation-for=Hi.FullNamess></span>
+    </div>
+    <br />
+    <div>
+        <button type="submit">submit</button>
+    </div>
+</form>

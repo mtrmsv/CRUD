@@ -4,15 +4,16 @@
 }
 
 <form method ="post">
-    <div>
-
+    <div class="col-10 ">
         <div>
-            <label class="form-label" asp-for="ViewModel.Name"></label>
+            <label class="form-label" asp-for="ViewModel.Name">@(Resources.DataDictionary.RoleName)</label>
             <input class="form-control" type="text" asp-for="ViewModel.Name" />
+            <span asp-validation-for="ViewModel.Name"></span>
         </div>
         <div class="form-check">
-            <label asp-for="ViewModel.IsActive" class="form-chekc-label" ></label>
+            <label asp-for="ViewModel.IsActive" class="form-chekc-label" >@(Resources.DataDictionary.IsActive)</label>
             <input type="checkbox" asp-for="ViewModel.IsActive" class="form-check-input" />
+            <span asp-validation-for="ViewModel.IsActive"></span>
         </div>
         <div>
             <button type="submit" class="btn btn-success ">@(Resources.ButtonCaptions.Submit)</button>
