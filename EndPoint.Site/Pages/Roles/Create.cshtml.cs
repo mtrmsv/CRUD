@@ -7,7 +7,9 @@ namespace EndPoint.Site.Pages.Roles
     public class CreateModel : BasePageModelWithDatabase
     {
 
-        public CreateModel(CRUD.Persistance.Contexts.DataBaseContext DataBaseContext, AutoMapper.IMapper mapper) : base(DataBaseContext)
+        public CreateModel
+            (CRUD.Persistance.Contexts.DataBaseContext DataBaseContext, 
+            AutoMapper.IMapper mapper) : base(DataBaseContext)
         {
             ViewModel = new();
             Mapper = mapper;
